@@ -43,8 +43,9 @@ spec:
             - name: FM_NAMESPACE
               value: {{ default "squidstack" .Values.featureFlags.namespace | quote }}
             {{- end }}
-            {{- with .Values.env }}
-            {{- toYaml . | nindent 12 }}
+            {{- range .Values.env }}
+            - name: {{ .name | quote }}
+              value: {{ .value | toString | quote }}
             {{- end }}
 
           {{- $probes := .Values.probes | default dict }}
