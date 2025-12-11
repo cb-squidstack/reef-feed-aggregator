@@ -23,31 +23,28 @@ spec:
               containerPort: 8080
 
           {{- $security := .Values.security | default dict }}
-          {{- $env := .Values.env | default dict }}
           env:
-            {{- if $env.JWT_SECRET }}
+            {{- if $security.jwtSecret }}
             - name: JWT_SECRET
-              value: {{ $env.JWT_SECRET | quote }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $security.secretName }}
+                  key: jwtSecret
             {{- end }}
-            {{- if $env.REEF_EU_URL }}
             - name: REEF_EU_URL
-              value: {{ $env.REEF_EU_URL | quote }}
-            {{- end }}
-            {{- if $env.REEF_NA_URL }}
+              value: "http://reef-eu:8080"
             - name: REEF_NA_URL
-              value: {{ $env.REEF_NA_URL | quote }}
-            {{- end }}
-            {{- if $env.REEF_SA_URL }}
+              value: "http://reef-na:8080"
             - name: REEF_SA_URL
-              value: {{ $env.REEF_SA_URL | quote }}
-            {{- end }}
-            {{- if $env.REEF_ASIA_URL }}
+              value: "http://reef-sa:8080"
             - name: REEF_ASIA_URL
-              value: {{ $env.REEF_ASIA_URL | quote }}
-            {{- end }}
+              value: "http://reef-asia:8080"
             {{- if .Values.featureFlags.enabled }}
             - name: FM_NAMESPACE
               value: {{ default "squidstack" .Values.featureFlags.namespace | quote }}
+            {{- end }}
+            {{- with .Values.env }}
+            {{- toYaml . | nindent 12 }}
             {{- end }}
 
           {{- $probes := .Values.probes | default dict }}

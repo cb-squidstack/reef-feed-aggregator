@@ -62,11 +62,5 @@ featureFlags:
   # Namespace prefix for CloudBees FM flags
   namespace: squidstack
 
-# -- Environment variables
-env:
-  JWT_SECRET: "footest"
-  FM_NAMESPACE: "squidstack"
-  REEF_EU_URL: "http://reef-eu:8080"
-  REEF_NA_URL: "http://reef-na:8080"
-  REEF_SA_URL: "http://reef-sa:8080"
-  REEF_ASIA_URL: "http://reef-asia:8080"
+# -- Environment variables (usually provided by workflow)
+env: []
