@@ -23,26 +23,27 @@ spec:
               containerPort: 8080
 
           {{- $security := .Values.security | default dict }}
+          {{- $env := .Values.env | default dict }}
           env:
-            {{- with .Values.env.JWT_SECRET }}
+            {{- if $env.JWT_SECRET }}
             - name: JWT_SECRET
-              value: {{ . | quote }}
+              value: {{ $env.JWT_SECRET | quote }}
             {{- end }}
-            {{- with .Values.env.REEF_EU_URL }}
+            {{- if $env.REEF_EU_URL }}
             - name: REEF_EU_URL
-              value: {{ . | quote }}
+              value: {{ $env.REEF_EU_URL | quote }}
             {{- end }}
-            {{- with .Values.env.REEF_NA_URL }}
+            {{- if $env.REEF_NA_URL }}
             - name: REEF_NA_URL
-              value: {{ . | quote }}
+              value: {{ $env.REEF_NA_URL | quote }}
             {{- end }}
-            {{- with .Values.env.REEF_SA_URL }}
+            {{- if $env.REEF_SA_URL }}
             - name: REEF_SA_URL
-              value: {{ . | quote }}
+              value: {{ $env.REEF_SA_URL | quote }}
             {{- end }}
-            {{- with .Values.env.REEF_ASIA_URL }}
+            {{- if $env.REEF_ASIA_URL }}
             - name: REEF_ASIA_URL
-              value: {{ . | quote }}
+              value: {{ $env.REEF_ASIA_URL | quote }}
             {{- end }}
             {{- if .Values.featureFlags.enabled }}
             - name: FM_NAMESPACE
