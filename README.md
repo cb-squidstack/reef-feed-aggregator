@@ -107,3 +107,5 @@ docker run -p 8080:8080 -e JWT_SECRET=footest reef-feed-aggregator
   }
 }
 ```
+
+Last updated: 2026-02-11 21:51 UTC
